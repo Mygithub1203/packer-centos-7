@@ -1,4 +1,10 @@
 {
+    "variables": {
+        "aws_access_key": "",
+        "aws_secret_key": "",
+        "centos_ami": "ami-6d1c2007",
+        "aws_default_region": "us-east-1"
+    },
   "provisioners": [
     {
       "type": "shell",
@@ -25,6 +31,21 @@
     }
   ],
   "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "{{user `aws_default_region`}}",
+      "source_ami": "{{user `centos_ami`}}",
+      "instance_type": "m3.medium",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ami_name": "packer-generated-spark-image {{timestamp}}",
+      "ami_description": "Automatically generated with packer",
+      "ami_virtualization_type": "hvm",
+      "associate_public_ip_address": "true",
+      "tags": {}
+    },
     {
       "type": "virtualbox-iso",
       "boot_command": [
