@@ -1,18 +1,21 @@
-# Packer Example - CentOS 7 minimal Vagrant Box using Ansible provisioner
+# Packer - CentOS 7 Deeplearning4J build box for Docker, AWS, Azure, Vagrant using Ansible provisioner
 
 **Current CentOS Version Used**: 7.3
 
-**Pre-built Vagrant Box**:
-
-  - [`vagrant init geerlingguy/centos7`](https://vagrantcloud.com/geerlingguy/boxes/centos7)
-  - See older versions: http://files.midwesternmac.com/
-
-This example build configuration installs and configures CentOS 7 x86_64 minimal using Ansible, and then generates two Vagrant box files, for:
+This example build configuration installs and configures CentOS 7 x86_64 with
+the necessary elements for a deeplearning4j build box using Ansible, and then generates two Vagrant box files, for:
 
   - VirtualBox
   - VMware
 
-The example can be modified to use more Ansible roles, plays, and included playbooks to fully configure (or partially) configure a box file suitable for deployment for development environments.
+It also creates images for :
+
+  - Docker
+  - Azure-ARM
+  - Amazon-AWS
+
+For the cloud providers, you will need to provision environment variables for
+the cloud access credentials, see `centos7.json` at the root of the repo.
 
 ## Requirements
 
@@ -35,22 +38,19 @@ After a few minutes, Packer should tell you the box was generated successfully.
 If you want to only build a box for one of the supported virtualization platforms (e.g. only build the VMware box), add `--only=vmware-iso` to the `packer build` command:
 
     $ packer build --only=vmware-iso centos7.json
-    
+
     $ packer build --only=virtualbox-iso centos7.json
 
-## Testing built boxes
+    $ packer build --only=azure-arm centos7.json
 
-There's an included Vagrantfile that allows quick testing of the built Vagrant boxes. From this same directory, run one of the following commands after building the boxes:
+    $ packer build --only=amazon-ebs centos7.json
 
-    # For VMware Fusion:
-    $ vagrant up vmware --provider=vmware_fusion
-    
-    # For VirtualBox:
-    $ vagrant up virtualbox --provider=virtualbox
+    $ packer build --only=docker centos7.json
+
 
 ## License
 
-MIT license.
+Derived from https://github.com/geerlingguy/packer-centos-7, MIT license.
 
 ## Author Information
 
