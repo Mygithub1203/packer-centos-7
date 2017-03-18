@@ -53,6 +53,8 @@ For building with Azure, you need to proceed through the process outlined in the
 
 https://www.packer.io/docs/builders/azure-setup.html
 
+If you are using the CLI, a helper script (that should eb run after azure
+login) is at the root of the repo : `azure_credentials.sh`.
 
 If you want to only build a box for one of the supported virtualization platforms (e.g. only build the VMware box), add `--only=vmware-iso` to the `packer build` command:
 
