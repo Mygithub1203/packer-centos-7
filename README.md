@@ -42,6 +42,18 @@ Make sure all the required software (listed above) is installed, then cd to the 
 
 After a few minutes, Packer should tell you the box was generated successfully.
 
+For building with AWS, you'll need to set the same environment variables that
+are read by the [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started. tml#cli-environment), namely:
+
+    `AWS_ACCESS_KEY_ID`
+
+    `AWS_SECRET_ACCESS_KEY`
+
+For building with Azure, you need to proceed through the process outlined in the following:
+
+https://www.packer.io/docs/builders/azure-setup.html
+
+
 If you want to only build a box for one of the supported virtualization platforms (e.g. only build the VMware box), add `--only=vmware-iso` to the `packer build` command:
 
     $ packer build --only=vmware-iso centos7.json
@@ -61,4 +73,7 @@ Derived from https://github.com/geerlingguy/packer-centos-7, MIT license.
 
 ## Author Information
 
-Created in 2014 by [Jeff Geerling](http://jeffgeerling.com/), author of [Ansible for DevOps](http://ansiblefordevops.com/).
+Original version created in 2014 by [Jeff Geerling](http://jeffgeerling.com/).
+
+Adapted for DL4j, extended (aws, azure, ansible) for Deeplearning4J and now
+maintained by F. Garillot (francois@skymind.io)
