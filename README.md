@@ -43,7 +43,7 @@ Make sure all the required software (listed above) is installed, then cd to the 
 After a few minutes, Packer should tell you the box was generated successfully.
 
 For building with AWS, you'll need to set the same environment variables that
-are read by the [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started. tml#cli-environment), namely:
+are read by the [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.tml#cli-environment), namely:
 
     `AWS_ACCESS_KEY_ID`
 
@@ -78,4 +78,4 @@ Derived from https://github.com/geerlingguy/packer-centos-7, MIT license.
 Original version created in 2014 by [Jeff Geerling](http://jeffgeerling.com/).
 
 Adapted for DL4j, extended (aws, azure, ansible) for Deeplearning4J and now
-maintained by F. Garillot (francois@skymind.io)
+maintained by F. Garillot (francois@skymind.io), 2017.
