@@ -24,6 +24,7 @@ The following software must be installed/present on your local machine before yo
   - [Packer](http://www.packer.io/)
   - [Vagrant](http://vagrantup.com/)
   - [VirtualBox](https://www.virtualbox.org/) (if you want to build the VirtualBox box)
+  - [Docker](https://www.docker.com/) (if you want to build the Docker container)
   - [VMware Fusion](http://www.vmware.com/products/fusion/) (or Workstation - if you want to build the VMware box)
   - [Ansible](http://docs.ansible.com/intro_installation.html)
 
