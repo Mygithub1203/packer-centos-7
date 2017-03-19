@@ -45,9 +45,9 @@ After a few minutes, Packer should tell you the box was generated successfully.
 For building with AWS, you'll need to set the same environment variables that
 are read by the [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.tml#cli-environment), namely:
 
-    `AWS_ACCESS_KEY_ID`
+    AWS_ACCESS_KEY_ID
 
-    `AWS_SECRET_ACCESS_KEY`
+    AWS_SECRET_ACCESS_KEY
 
 For building with Azure, you need to proceed through the process outlined in the following:
 
