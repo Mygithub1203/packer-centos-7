@@ -1,4 +1,4 @@
-#!/bin/bash -eux
+#!/bin/bash -eu
 
 # requires jq & azure cli
 echo "This should only be executed after you have logged in with azure login -u username"
@@ -28,4 +28,11 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     ARM_TENANT_ID=$(azure account show --json | jq ".[] | .user.name")
     ARM_TENANT_ID=${ARM_TENANT_ID%\"}
     export ARM_TENANT_ID=${ARM_TENANT_ID#\"}
+
+    echo "ARM_CLIENT_ID=$ARM_CLIENT_ID"
+    echo "ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET"
+    echo "ARM_TENANT_ID=$ARM_TENANT_ID"
+    echo "ARM_RESOURCE_GROUP=$ARM_RESOURCE_GROUP"
+    echo "ARM_STORAGE_ACCOUNT=$ARM_STORAGE_ACCOUNT"
+    echo "ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID"
 fi

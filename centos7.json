@@ -89,7 +89,7 @@
       "ssh_username": "centos",
       "ssh_pty": "true",
       "ami_name": "packer-generated-dl4j-image {{timestamp}}",
-      "ami_description": "Automatically generated with packer",
+      "ami_description": "DL4J base build - Automatically generated with packer",
       "ami_virtualization_type": "hvm",
       "associate_public_ip_address": "true",
       "tags": {}
