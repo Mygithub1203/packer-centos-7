@@ -72,7 +72,7 @@
     "os_type": "Linux",
     "image_publisher": "OpenLogic",
     "image_offer": "CentOS",
-    "image_sku": "7.2",
+    "image_sku": "7.3",
     "image_version": "latest",
     "ssh_pty": "true",
 
