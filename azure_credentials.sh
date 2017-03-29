@@ -23,9 +23,9 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     sleep 40
     azure role assignment create --spn $APPURL -o "Owner" -c /subscriptions/$ARM_SUBSCRIPTION_ID
 
-    export ARM_RESOURCE_GROUP="centos7-provisioning-$(openssl rand -base64 6)"
+    export ARM_RESOURCE_GROUP="centos7-provisioning-$(openssl rand -hex 4)"
     azure group create -n "$ARM_RESOURCE_GROUP" -l eastus
-    export ARM_STORAGE_ACCOUNT="centos7storageprovision-$(openssl rand -base64 6)"
+    export ARM_STORAGE_ACCOUNT="centos7storageprovision-$(openssl rand -hex 4)"
     azure storage account create -g $ARM_RESOURCE_GROUP -l eastus --sku-name LRS --kind storage $ARM_STORAGE_ACCOUNT
 
     ARM_TENANT_ID=$(azure account show --json | jq ".[] | .user.name")
