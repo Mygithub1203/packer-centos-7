@@ -14,6 +14,10 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID%\"}
     export ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID#\"}
 
+    ARM_FORMER_CLIENT_ID=$(azure ad app list --json |  jq '.[] | select(.displayName | contains("centos7-provisioning")) | .appId')
+    if [ ! -z $ARM_FORMER_CLIENT_ID ]; then
+        azure ad app delete $ARM_FORMER_CLIENT_ID
+    fi
     azure ad app create -n "centos7-provisioning" -i $APPURL --home-page $APPURL -p $ARM_CLIENT_SECRET
     sleep 30 # app ID registration takes time
     ARM_CLIENT_ID=$(azure ad app list --json |  jq '.[] | select(.displayName | contains("centos7-provisioning")) | .appId')
@@ -25,7 +29,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 
     export ARM_RESOURCE_GROUP="centos7-provisioning$(openssl rand -hex 4)"
     azure group create -n "$ARM_RESOURCE_GROUP" -l eastus
-    export ARM_STORAGE_ACCOUNT="centos7storageprovision$(openssl rand -hex 4)"
+    export ARM_STORAGE_ACCOUNT="centos7storage$(openssl rand -hex 4)"
     azure storage account create -g $ARM_RESOURCE_GROUP -l eastus --sku-name LRS --kind storage $ARM_STORAGE_ACCOUNT
 
     ARM_TENANT_ID=$(azure account show --json | jq ".[] | .user.name")
