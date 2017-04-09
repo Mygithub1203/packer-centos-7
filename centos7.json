@@ -12,7 +12,7 @@
         "aws_cli_comment": "These should really be configured using the AWS cli",
         "aws_access_key": "{{ env `AWS_ACCESS_KEY`}}",
         "aws_secret_key": "{{ env `AWS_SECRET_KEY` }}",
-        "base_ami": "ami-f7d75be1",
+        "centos_ami": "ami-6d1c2007",
         "aws_default_region": "us-east-1",
         "atlas_token": "{{ env `ATLAS_TOKEN`}}"
     },
@@ -84,7 +84,7 @@
       "access_key": "{{user `aws_access_key`}}",
       "secret_key": "{{user `aws_secret_key`}}",
       "region": "{{user `aws_default_region`}}",
-      "source_ami": "{{user `base_ami`}}",
+      "source_ami": "{{user `centos_ami`}}",
       "instance_type": "m3.medium",
       "ssh_username": "centos",
       "ssh_pty": "true",
