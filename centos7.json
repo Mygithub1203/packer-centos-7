@@ -88,7 +88,7 @@
       "instance_type": "m3.medium",
       "ssh_username": "centos",
       "ssh_pty": "true",
-      "ami_name": "packer-generated-dl4j-image {{timestamp}}",
+      "ami_name": "packer-generated-dl4j-base-image {{timestamp}}",
       "ami_description": "DL4J base build - Automatically generated with packer",
       "ami_virtualization_type": "hvm",
       "associate_public_ip_address": "true",
