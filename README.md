@@ -30,7 +30,7 @@ The following software must be installed/present on your local machine before yo
 
 ## Assets
 
-The docker image is hosted on docker hub (see [DockerHub](https://hub.docker.com/r/huitseeker/dl4j-centos7-dev-env/)). The vagrant box is hosted on Atlas see ([Atlas](https://atlas.hashicorp.com/huitseeker/boxes/dl4j-build-box)). The source code is hosted on GitHub (see [GitHub](https://atlas.hashicorp.com/huitseeker/boxes/dl4j-build-box)).
+The docker image is hosted on docker hub (see [DockerHub](https://hub.docker.com/r/huitseeker/dl4j-centos7-dev-env/)). The vagrant box is hosted on Atlas see ([Atlas](https://atlas.hashicorp.com/huitseeker/boxes/dl4j-build-box)). The source code is hosted on GitHub (see [GitHub](https://github.com/deeplearning4j/java_deps)).
 
 
 The image is provisioned with Packer, using a centos7 base image and an Ansible role. The role is on Ansible-Galaxy (see [Galaxy](https://galaxy.ansible.com/huitseeker/java_deps/)). And it's compatible not just with CentOS, but with Ubuntu as well.
