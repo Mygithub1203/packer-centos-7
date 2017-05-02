@@ -171,7 +171,11 @@
       "commit": "true",
       "privileged": "true",
       "volumes": {"/sys/fs/cgroup":"/sys/fs/cgroup"},
-      "run_command": ["-d", "-i", "-t", "{{.Image}}", "/sbin/init"]
+      "run_command":  ["-d", "-i", "-t", "{{.Image}}", "/sbin/init"],
+      "changes": [
+           "USER skil",
+           "ENTRYPOINT /sbin/init"
+       ]
     }
   ],
   "post-processors": [
