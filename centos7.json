@@ -168,7 +168,10 @@
     {
       "type": "docker",
       "image": "geerlingguy/docker-centos7-ansible",
-      "commit": "true"
+      "commit": "true",
+      "privileged": "true",
+      "volumes": {"/sys/fs/cgroup":"/sys/fs/cgroup"},
+      "run_command": ["-d", "-i", "-t", "{{.Image}}", "/sbin/init"]
     }
   ],
   "post-processors": [
