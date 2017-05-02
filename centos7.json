@@ -1,5 +1,6 @@
 {
     "variables": {
+        "home": "{{env `HOME`}}",
         "azure_comment": "Follow these guidelines to initialize the azure variables : https://www.packer.io/docs/builders/azure-setup.html",
         "azure_client_id": "{{env `ARM_CLIENT_ID`}}",
         "azure_client_secret": "{{env `ARM_CLIENT_SECRET`}}",
@@ -170,10 +171,9 @@
       "image": "geerlingguy/docker-centos7-ansible",
       "commit": "true",
       "privileged": "true",
-      "volumes": {"/sys/fs/cgroup":"/sys/fs/cgroup"},
+        "volumes": {"/sys/fs/cgroup":"/sys/fs/cgroup", "{{ user `home` }}/.docker":"/root/.docker"},
       "run_command":  ["-d", "-i", "-t", "{{.Image}}", "/sbin/init"],
       "changes": [
-           "USER skil",
            "ENTRYPOINT /sbin/init"
        ]
     }
@@ -188,12 +188,12 @@
       {
         "type": "docker-tag",
         "repository": "huitseeker/dl4j-centos7-dev-env",
-         "tag": "latest",
+          "tag": "latest",
         "only": ["docker"]
       },
       {
         "type": "docker-push",
-        "login": "true",
+        "login": "false",
         "login_email": "{{user `dockerhub_email`}}",
         "login_username": "{{user `dockerhub_login`}}",
         "login_password": "{{user `dockerhub_password`}}",
