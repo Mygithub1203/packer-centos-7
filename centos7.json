@@ -14,9 +14,6 @@
         "aws_secret_key": "{{ env `AWS_SECRET_KEY` }}",
         "centos_ami": "ami-6d1c2007",
         "aws_default_region": "us-east-1",
-        "bintray_login": "{{ env `BINTRAY_LOGIN`}}",
-        "bintray_email": "{{ env `BINTRAY_EMAIL`}}",
-        "bintray_password": "{{ env `BINTRAY_PASSWORD`}}",
         "dockerhub_login": "{{ env `DOCKERHUB_LOGIN`}}",
         "dockerhub_email": "{{ env `DOCKERHUB_EMAIL`}}",
         "dockerhub_password": "{{ env `DOCKERHUB_PASSWORD`}}",
@@ -193,23 +190,6 @@
         "login_email": "{{user `dockerhub_email`}}",
         "login_username": "{{user `dockerhub_login`}}",
         "login_password": "{{user `dockerhub_password`}}",
-        "only": ["docker"]
-      }
-    ],
-    [
-      {
-        "type": "docker-tag",
-        "repository": "deeplearning4j-docker-registry.bintray.io/dl4j-centos7-dev-env",
-        "tag": "latest",
-        "only": ["docker"]
-      },
-      {
-        "type": "docker-push",
-        "login": "true",
-        "login_server": "deeplearning4j-docker-registry.bintray.io",
-        "login_email": "{{user `bintray_email`}}",
-        "login_username": "{{user `bintray_login`}}",
-        "login_password": "{{user `bintray_password`}}",
         "only": ["docker"]
       }
     ],
