@@ -174,8 +174,7 @@
         "volumes": {"/sys/fs/cgroup":"/sys/fs/cgroup:ro", "{{ user `home` }}/.docker":"/root/.docker"},
       "run_command":  ["-d", "-i", "-t", "{{.Image}}", "/sbin/init"],
       "changes": [
-          "ENTRYPOINT /sbin/init",
-          "MAINTAINER francois@skymind.io"
+           "ENTRYPOINT /sbin/init"
        ]
     }
   ],
