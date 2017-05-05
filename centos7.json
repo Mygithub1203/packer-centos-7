@@ -9,7 +9,7 @@
         "azure_subscription_id": "{{env `ARM_SUBSCRIPTION_ID`}}",
         "azure_tenant_id": "{{env `ARM_TENANT_ID`}}",
         "azure_location_comment": "Note GPU instances are not available in all regions https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/",
-        "azure_default_location": "East US",
+        "azure_default_location": "{{ env `ARM_REGION` }}",
         "aws_cli_comment": "These should really be configured using the AWS cli",
         "aws_access_key": "{{ env `AWS_ACCESS_KEY`}}",
         "aws_secret_key": "{{ env `AWS_SECRET_KEY` }}",

@@ -8,29 +8,31 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 
     azure config mode arm
 
-    APPURL="http://provisioning.deeplearn.online"
+    APPURL="http://provision.deeplearn.online"
     export ARM_CLIENT_SECRET=$(openssl rand -base64 24)
     ARM_SUBSCRIPTION_ID=$(azure account show --json | jq ".[] | .id")
     ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID%\"}
     export ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID#\"}
 
-    ARM_FORMER_CLIENT_ID=$(azure ad app list --json |  jq '.[] | select(.displayName | contains("centos7-provisioning")) | .appId')
+    ARM_FORMER_CLIENT_ID=$(azure ad app list --json |  jq '.[] | select(.displayName | contains("centos7-image-provisioning")) | .appId')
+    ARM_FORMER_CLIENT_ID=${ARM_FORMER_CLIENT_ID%\"}
+    export ARM_FORMER_CLIENT_ID=${ARM_FORMER_CLIENT_ID#\"}
     if [ ! -z $ARM_FORMER_CLIENT_ID ]; then
         azure ad app delete $ARM_FORMER_CLIENT_ID
     fi
-    azure ad app create -n "centos7-provisioning" -i $APPURL --home-page $APPURL -p $ARM_CLIENT_SECRET
+    azure ad app create -n "centos7-image-provisioning" -i $APPURL --home-page $APPURL -p $ARM_CLIENT_SECRET
     sleep 30 # app ID registration takes time
-    ARM_CLIENT_ID=$(azure ad app list --json |  jq '.[] | select(.displayName | contains("centos7-provisioning")) | .appId')
+    ARM_CLIENT_ID=$(azure ad app list --json |  jq '.[] | select(.displayName | contains("centos7-image-provisioning")) | .appId')
     ARM_CLIENT_ID=${ARM_CLIENT_ID%\"}
     export ARM_CLIENT_ID=${ARM_CLIENT_ID#\"}
     azure ad sp create --applicationId $ARM_CLIENT_ID
     sleep 40
     azure role assignment create --spn $APPURL -o "Owner" -c /subscriptions/$ARM_SUBSCRIPTION_ID
 
-    export ARM_RESOURCE_GROUP="centos7-provisioning$(openssl rand -hex 4)"
+    export ARM_RESOURCE_GROUP="centos7-image-provisioning$(openssl rand -hex 4)"
     azure group create -n "$ARM_RESOURCE_GROUP" -l eastus
-    # export ARM_STORAGE_ACCOUNT="centos7storage$(openssl rand -hex 4)"
-    export ARM_STORAGE_ACCOUNT="centos7storageprovision"
+    export ARM_STORAGE_ACCOUNT="centos7storage$(openssl rand -hex 4)"
+    # export ARM_STORAGE_ACCOUNT="centos7storageprovision
     azure storage account create -g $ARM_RESOURCE_GROUP -l eastus --sku-name LRS --kind storage $ARM_STORAGE_ACCOUNT
 
     ARM_TENANT_ID=$(azure account show --json | jq ".[] | .user.name")
