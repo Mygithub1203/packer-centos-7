@@ -67,8 +67,8 @@
     "subscription_id": "{{user `azure_subscription_id`}}",
     "tenant_id": "{{user `tenant_id`}}",
 
-    "capture_container_name": "images",
-    "capture_name_prefix": "packer",
+    "capture_container_name": "deeplearning4j-base-image",
+    "capture_name_prefix": "centos7-dl4j-dev-env",
 
     "ssh_username": "vagrant",
     "ssh_password": "vagrant",
