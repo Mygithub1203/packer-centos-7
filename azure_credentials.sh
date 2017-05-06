@@ -14,7 +14,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID%\"}
     export ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID#\"}
 
-    ARM_FORMER_CLIENT_ID=$(azure ad app list --json |  jq '.[] | select(.displayName | contains("centos7-image-provisioning")) | .appId')
+    ARM_FORMER_CLIENT_ID=$(azure ad app list --json |  jq '.[] | select(.displayName | contains("centos7-image-provisioning")) | .objectId')
     ARM_FORMER_CLIENT_ID=${ARM_FORMER_CLIENT_ID%\"}
     export ARM_FORMER_CLIENT_ID=${ARM_FORMER_CLIENT_ID#\"}
     if [ ! -z $ARM_FORMER_CLIENT_ID ]; then
