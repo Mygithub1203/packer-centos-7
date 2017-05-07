@@ -33,13 +33,21 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     ARM_SUBSCRIPTION_NAMES=($ARM_SUBSCRIPTION_NAMES)
     ARM_SUBSCRIPTION_IDS=($ARM_SUBSCRIPTION_IDS)
 
-    SELECTED=$(createmenu "${#ARM_SUBSCRIPTION_NAMES[@]}" "${ARM_SUBSCRIPTION_NAMES[@]}")
+    SELECTED_SUBSCRIPTION=$(createmenu "${#ARM_SUBSCRIPTION_NAMES[@]}" "${ARM_SUBSCRIPTION_NAMES[@]}")
 
-    ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_IDS[$SELECTED]}
+    ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_IDS[$SELECTED_SUBSCRIPTION]}
 
     ARM_SUBSCRIPTION_ID=$(azure account show --json | jq ".[] | .id")
     ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID%\"}
     export ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID#\"}
+
+    ARM_REGIONS=("East US" "South Central US")
+    ARM_SHORT_REGIONS=("eastus" "southcentralus")
+
+    SELECTED_REGION=$(createmenu "${#ARM_REGIONS[@]}" "${ARM_REGIONS[@]}")
+
+    export ARM_REGION=${ARM_REGIONS[$SELECTED_REGION]}
+    ARM_SHORT_REGION=${ARM_SHORT_REGIONS[$SELECTED_REGION]}
 
     ARM_FORMER_CLIENT_ID=$(azure ad app list --json |  jq '.[] | select(.displayName | contains("centos7-image-provisioning")) | .objectId')
     ARM_FORMER_CLIENT_ID=${ARM_FORMER_CLIENT_ID%\"}
@@ -57,10 +65,10 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     azure role assignment create --spn $APPURL -o "Owner" -c /subscriptions/$ARM_SUBSCRIPTION_ID
 
     export ARM_RESOURCE_GROUP="centos7-image-provisioning$(openssl rand -hex 4)"
-    azure group create -n "$ARM_RESOURCE_GROUP" -l eastus
+    azure group create -n "$ARM_RESOURCE_GROUP" -l $ARM_SHORT_REGION
     export ARM_STORAGE_ACCOUNT="centos7storage$(openssl rand -hex 4)"
     # export ARM_STORAGE_ACCOUNT="centos7storageprovision
-    azure storage account create -g $ARM_RESOURCE_GROUP -l eastus --sku-name LRS --kind storage $ARM_STORAGE_ACCOUNT
+    azure storage account create -g $ARM_RESOURCE_GROUP -l $ARM_SHORT_REGION --sku-name LRS --kind storage $ARM_STORAGE_ACCOUNT
 
     ARM_TENANT_ID=$(azure account show --json | jq ".[] | .user.name")
     ARM_TENANT_ID=${ARM_TENANT_ID%\"}
