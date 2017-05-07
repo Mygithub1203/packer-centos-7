@@ -1,5 +1,22 @@
 #!/bin/bash -eu
 
+createmenu(){
+    arrsize=$1
+    select option in "${@:2}"; do
+        if [ "$REPLY" -eq "$((arrsize +1))" ];
+        then
+            echo "Exiting..."
+            break;
+        elif [ 1 -le "$REPLY" ] && [ "$REPLY" -le $((arrsize+1)) ];
+        then
+            echo "$((REPLY-1))"
+            break;
+        else
+            echo "Incorrect Input: Select a number 1-$arrsize"
+        fi
+    done
+}
+
 # requires jq & azure cli
 echo "This should only be executed after you have logged in with azure login -u username"
 read -p "Did you login successfully, to the right account? [y/n]" -n 1
@@ -10,6 +27,16 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 
     APPURL="http://provision.deeplearn.online"
     export ARM_CLIENT_SECRET=$(openssl rand -base64 24)
+
+    ARM_SUBSCRIPTION_NAMES=$(azure account list --json | jq '.[]| .name'| tr " " '_')
+    ARM_SUBSCRIPTION_IDS=$(azure account list --json | jq '.[]| .id')
+    ARM_SUBSCRIPTION_NAMES=($ARM_SUBSCRIPTION_NAMES)
+    ARM_SUBSCRIPTION_IDS=($ARM_SUBSCRIPTION_IDS)
+
+    SELECTED=$(createmenu "${#ARM_SUBSCRIPTION_NAMES[@]}" "${ARM_SUBSCRIPTION_NAMES[@]}")
+
+    ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_IDS[$SELECTED]}
+
     ARM_SUBSCRIPTION_ID=$(azure account show --json | jq ".[] | .id")
     ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID%\"}
     export ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID#\"}
