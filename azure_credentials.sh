@@ -37,7 +37,6 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 
     ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_IDS[$SELECTED_SUBSCRIPTION]}
 
-    ARM_SUBSCRIPTION_ID=$(azure account show --json | jq ".[] | .id")
     ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID%\"}
     export ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID#\"}
 
@@ -74,6 +73,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     ARM_TENANT_ID=${ARM_TENANT_ID%\"}
     export ARM_TENANT_ID=${ARM_TENANT_ID#\"}
 
+    echo "ARM_REGION=\"$ARM_REGION\""
     echo "ARM_CLIENT_ID=$ARM_CLIENT_ID"
     echo "ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET"
     echo "ARM_TENANT_ID=$ARM_TENANT_ID"
