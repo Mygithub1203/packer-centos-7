@@ -40,6 +40,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID%\"}
     export ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID#\"}
 
+    azure account set $ARM_SUBSCRIPTION_ID
     ARM_REGIONS=("East US" "South Central US")
     ARM_SHORT_REGIONS=("eastus" "southcentralus")
 
