@@ -13,7 +13,7 @@
         "aws_cli_comment": "These should really be configured using the AWS cli",
         "aws_access_key": "{{ env `AWS_ACCESS_KEY`}}",
         "aws_secret_key": "{{ env `AWS_SECRET_KEY` }}",
-        "centos_ami": "ami-6d1c2007",
+        "centos_ami": "ami-ae7bfdb8",
         "aws_default_region": "us-east-1",
         "dockerhub_login": "{{ env `DOCKERHUB_LOGIN`}}",
         "dockerhub_email": "{{ env `DOCKERHUB_EMAIL`}}",
