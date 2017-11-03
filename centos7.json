@@ -12,7 +12,7 @@
         "azure_default_location": "{{ env `ARM_REGION` }}",
         "aws_cli_comment": "These should really be configured using the AWS cli",
         "aws_access_key": "{{ env `AWS_ACCESS_KEY`}}",
-        "aws_secret_key": "{{ env `AWS_SECRET_KEY` }}",
+        "aws_secret_key": "{{ env `AWS_SECRET_ACCESS_KEY` }}",
         "centos_ami": "ami-ae7bfdb8",
         "aws_default_region": "us-east-1",
         "dockerhub_login": "{{ env `DOCKERHUB_LOGIN`}}",
@@ -178,37 +178,50 @@
        ]
     }
   ],
-  "post-processors": [
-    {
-      "output": "builds/{{.Provider}}-centos7.box",
-      "type": "vagrant",
-      "only": ["virtualbox-iso", "vmware-iso"]
-    },
-    [
-      {
-        "type": "docker-tag",
-        "repository": "huitseeker/dl4j-centos7-dev-env",
-          "tag": "latest",
-        "only": ["docker"]
-      },
-      {
-        "type": "docker-push",
-        "login": "false",
-        "login_email": "{{user `dockerhub_email`}}",
-        "login_username": "{{user `dockerhub_login`}}",
-        "login_password": "{{user `dockerhub_password`}}",
-        "only": ["docker"]
-      }
-    ],
-      {
-          "type": "atlas",
-          "token": "{{user `atlas_token`}}",
-          "artifact": "skymind/dl4j-build-box",
-          "artifact_type": "vagrant.box",
-          "metadata": { "provider": "virtualbox", "description": "Build box for deeplearning4j projects. Provisioned with (among others) cuda, blas & gcc-5. The docker image is hosted on docker hub (see [DockerHub](https://hub.docker.com/r/huitseeker/dl4j-centos7-dev-env/)). The vagrant box is hosted on Atlas see ([Atlas](https://atlas.hashicorp.com/huitseeker/boxes/dl4j-build-box)). The source code is hosted on GitHub (see [GitHub](https://github.com/deeplearning4j/java_deps)). The image is provisioned with Packer, using a centos7 base image and an Ansible role. The role is on Ansible-Galaxy (see [Galaxy](https://galaxy.ansible.com/huitseeker/java_deps/))."},
-          "only": ["virtualbox-iso"]
-      }
-
-
-  ]
+    "post-processors": [
+        {
+            "output": "builds/{{.Provider}}-centos7.box",
+            "type": "vagrant",
+            "only": ["virtualbox-iso", "vmware-iso"]
+        },
+        [
+            {
+                "type": "docker-tag",
+                "repository": "huitseeker/dl4j-centos7-dev-env",
+                "tag": "latest",
+                "only": ["docker"]
+            },
+            {
+                "type": "docker-push",
+                "login": "false",
+                "login_email": "{{user `dockerhub_email`}}",
+                "login_username": "{{user `dockerhub_login`}}",
+                "login_password": "{{user `dockerhub_password`}}",
+                "only": ["docker"]
+            }
+        ],
+        [
+            {
+                "type": "docker-tag",
+                "repository": "104904749259.dkr.ecr.us-east-1.amazonaws.com/deeplearning4j",
+                "tag": "latest"
+            },
+            {
+                "type": "docker-push",
+                "login": "false",
+                "ecr_login": true,
+                "login_server": "https://054697148530.dkr.ecr.us-east-1.amazonaws.com",
+                "aws_access_key": "{{ user `aws_access_key`}}",
+                "aws_access_key": "{{ user `aws_secret_key`}}"
+            }
+        ],
+        {
+            "type": "atlas",
+            "token": "{{user `atlas_token`}}",
+            "artifact": "skymind/dl4j-build-box",
+            "artifact_type": "vagrant.box",
+            "metadata": { "provider": "virtualbox", "description": "Build box for deeplearning4j projects. Provisioned with (among others) cuda, blas & gcc-5. The docker image is hosted on docker hub (see [DockerHub](https://hub.docker.com/r/huitseeker/dl4j-centos7-dev-env/)). The vagrant box is hosted on Atlas see ([Atlas](https://atlas.hashicorp.com/huitseeker/boxes/dl4j-build-box)). The source code is hosted on GitHub (see [GitHub](https://github.com/deeplearning4j/java_deps)). The image is provisioned with Packer, using a centos7 base image and an Ansible role. The role is on Ansible-Galaxy (see [Galaxy](https://galaxy.ansible.com/huitseeker/java_deps/))."},
+            "only": ["virtualbox-iso"]
+        }
+    ]
 }
