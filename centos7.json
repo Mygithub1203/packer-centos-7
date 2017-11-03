@@ -11,7 +11,7 @@
         "azure_location_comment": "Note GPU instances are not available in all regions https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/",
         "azure_default_location": "{{ env `ARM_REGION` }}",
         "aws_cli_comment": "These should really be configured using the AWS cli",
-        "aws_access_key": "{{ env `AWS_ACCESS_KEY`}}",
+        "aws_access_key": "{{ env `AWS_ACCESS_KEY_ID`}}",
         "aws_secret_key": "{{ env `AWS_SECRET_ACCESS_KEY` }}",
         "centos_ami": "ami-ae7bfdb8",
         "aws_default_region": "us-east-1",
