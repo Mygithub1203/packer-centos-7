@@ -193,7 +193,6 @@
             },
             {
                 "type": "docker-push",
-                "login": "false",
                 "login_email": "{{user `dockerhub_email`}}",
                 "login_username": "{{user `dockerhub_login`}}",
                 "login_password": "{{user `dockerhub_password`}}",
@@ -204,15 +203,16 @@
             {
                 "type": "docker-tag",
                 "repository": "104904749259.dkr.ecr.us-east-1.amazonaws.com/deeplearning4j",
-                "tag": "latest"
+                "tag": "latest",
+                "only": ["docker"]
             },
             {
                 "type": "docker-push",
-                "login": "false",
                 "ecr_login": true,
                 "login_server": "https://054697148530.dkr.ecr.us-east-1.amazonaws.com",
                 "aws_access_key": "{{ user `aws_access_key`}}",
-                "aws_access_key": "{{ user `aws_secret_key`}}"
+                "aws_access_key": "{{ user `aws_secret_key`}}",
+                "only": ["docker"]
             }
         ],
         {
