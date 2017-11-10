@@ -17,8 +17,7 @@
         "aws_default_region": "us-east-1",
         "dockerhub_login": "{{ env `DOCKERHUB_LOGIN`}}",
         "dockerhub_email": "{{ env `DOCKERHUB_EMAIL`}}",
-        "dockerhub_password": "{{ env `DOCKERHUB_PASSWORD`}}",
-        "atlas_token": "{{ env `ATLAS_TOKEN`}}"
+        "dockerhub_password": "{{ env `DOCKERHUB_PASSWORD`}}"
     },
   "provisioners": [
     {
@@ -181,6 +180,7 @@
         {
             "output": "builds/{{.Provider}}-centos7.box",
             "type": "vagrant",
+            "keep_input_artifact": true,
             "only": ["virtualbox-iso", "vmware-iso"]
         },
         [
@@ -213,14 +213,6 @@
                 "aws_access_key": "{{ user `aws_secret_key`}}",
                 "only": ["docker"]
             }
-        ],
-        {
-            "type": "atlas",
-            "token": "{{user `atlas_token`}}",
-            "artifact": "skymind/dl4j-build-box",
-            "artifact_type": "vagrant.box",
-            "metadata": { "provider": "virtualbox", "description": "Build box for deeplearning4j projects. Provisioned with (among others) cuda, blas & gcc-5. The docker image is hosted on docker hub (see [DockerHub](https://hub.docker.com/r/huitseeker/dl4j-centos7-dev-env/)). The vagrant box is hosted on Atlas see ([Atlas](https://atlas.hashicorp.com/huitseeker/boxes/dl4j-build-box)). The source code is hosted on GitHub (see [GitHub](https://github.com/deeplearning4j/java_deps)). The image is provisioned with Packer, using a centos7 base image and an Ansible role. The role is on Ansible-Galaxy (see [Galaxy](https://galaxy.ansible.com/huitseeker/java_deps/))."},
-            "only": ["virtualbox-iso"]
-        }
+        ]
     ]
 }
